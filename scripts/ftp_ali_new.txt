@@ -1,0 +1,24 @@
+#! /usr/bin/ksh
+
+i=NA12878/alignment
+cd /home/wangwb09/1000Genome/$i
+
+HOST=ftp-trace.ncbi.nih.gov
+USER=anonymous
+PASSWD=anonymous
+
+exec 4>&1
+ftp -nv >&4 2>&4 |&
+
+print -p open $HOST
+print -p user $USER $PASSWD
+print -p binary
+print -p prompt
+print -p cd 1000genomes/ftp/data/$i
+print -p mget NA12878.chrom11.ILLUMINA.bwa.CEU.high_coverage.20100311.bam
+print -p mget NA12878.chrom11.ILLUMINA.bwa.CEU.high_coverage.20100311.bam.bai
+print -p mget NA12878.chrom11.ILLUMINA.bwa.CEU.high_coverage.20100311.bam.bas
+print -p bye
+wait
+exit 0
+
